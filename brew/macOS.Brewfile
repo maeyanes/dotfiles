@@ -11,84 +11,87 @@ tap "homebrew/dupes"
 ###############################################################################
 # brew
 ###############################################################################
-brew "autoconf"
 brew "ack"
+brew "autoconf"
+brew "axel"
+brew "bash"
 brew "coreutils"
-brew "moreutils"
-brew "findutils", args: ["with-default-names"]
-brew "homebrew/dupes/grep", args: ["with-default-names"]
+brew "curl"
 brew "diff-so-fancy"
+brew "entr"
+brew "findutils", args: ["with-default-names"]
+brew "fish"
 brew "flake8" # for linting Python files
 brew "gifsicle" # for gif_compress fish function
+brew "git"
 brew "git-open"
 brew "git-redate"
 brew "grc"
-brew "axel"
-brew "fish"
-brew "bash"
-brew "git"
+brew "homebrew/dupes/grep", args: ["with-default-names"]
+brew "htop"
 brew "hub"
+brew "jq"
+brew "mas"
+brew "mercurial"
+brew "moreutils"
+brew "nvm"
+brew "p7zip"
+brew "pyenv"
 brew "python"
 brew "python@2"
-brew "mercurial"
 brew "ruby"
-brew "curl"
-brew "nvm"
-brew "mas"
-brew "entr"
-brew "jq"
-brew "htop"
-brew "tmux"
 brew "tldr"
+brew "tmux"
 brew "trash"
 brew "tree"
-brew "yarn"
+brew "vim"
 brew "wget"
+brew "yarn"
 brew "z"
 
 ###############################################################################
 # cask
 ###############################################################################
-cask "iterm2"
-cask "sourcetree"
 cask "bartender"
-#cask "brave-browser"
-cask "iina"
-cask "dash"
-#cask "hazel"
 cask "boom-3d"
-cask "dropbox"
-cask "qlcolorcode"
-cask "qlstephen"
-cask "qlmarkdown"
-cask "quicklook-json"
-cask "webpquicklook"
-cask "suspicious-package"
-cask "quicklookase"
-cask "qlvideo"
-cask "provisionql"
-cask "quicklook-pat"
-cask "quicklook-csv"
-cask "ql-ansilove"
-cask "docker"
-cask "kitematic"
-cask "little-snitch"
-cask "typora"
-cask "font-fira-mono-for-powerline" # for iTerm2 powerline
-cask "numi"
-#cask "ngrok"
+#cask "brave-browser"
 #cask "cocoapods-app"
+cask "dash"
+#cask "docker"
+cask "dropbox"
+cask "font-fira-mono-for-powerline" # for iTerm2 powerline
+#cask "hazel"
+cask "iina"
+cask "iterm2"
+#cask "kitematic"
+cask "little-snitch"
+#cask "ngrok"
+cask "numi"
+cask "provisionql"
+cask "ql-ansilove"
+cask "qlcolorcode"
+cask "qlmarkdown"
+cask "qlstephen"
+cask "qlvideo"
+cask "quicklook-csv"
+cask "quicklook-json"
+cask "quicklook-pat"
+cask "quicklookase"
+cask "sourcetree"
+cask "suspicious-package"
+cask "typora"
+cask "webpquicklook"
 
 ###############################################################################
 # mas
 ###############################################################################
-mas "Amphetamine", id: 937984704
-mas "Pocket", id: 568494494
 mas "Airmail 3", id: 918858936
-mas "Trello", id: 1278508951
+mas "Amphetamine", id: 937984704
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "Keynote", id: 409183694
-mas "iMovie", id: 408981434
-mas "GarageBand", id: 682658836
+mas "Pocket", id: 568494494
+mas "Trello", id: 1278508951
 mas "Xcode", id: 497799835
