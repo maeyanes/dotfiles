@@ -2,7 +2,7 @@
 
 main()
 {
-	configure_plist_apps # Configure all apps whose configurations are plists
+	#configure_plist_apps # Configure all apps whose configurations are plists
 	configure_numi
 	configure_iterm2
 	configure_system
@@ -10,10 +10,10 @@ main()
 	configure_finder
 }
 
-function configure_plist_apps()
-{
-	# Nothing to do, for now
-}
+#function configure_plist_apps()
+#{
+#	# Nothing to do, for now
+#}
 
 function configure_numi()
 {
@@ -30,7 +30,7 @@ function configure_numi()
 function configure_iterm2()
 {
 	defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -int 1
-	defaults write com.googlecode.iterm2 PrefsCustomFolder -string ~/.system-config/dotfiles/iTerm2
+	defaults write com.googlecode.iterm2 PrefsCustomFolder -string ~/.system-config/iTerm2
 }
 
 function configure_system()
@@ -53,8 +53,8 @@ function configure_dock()
 	quit "Dock"
 	# Don't show recent applications in Dock
 	defaults write com.apple.dock show-recents -bool false
-	# Set the icon size of Dock items to 55 pixels
-    defaults write com.apple.dock tilesize -int 55
+	# Set the icon size of Dock items to 60 pixels
+    defaults write com.apple.dock tilesize -int 60
     # Disable Dashboard
     defaults write com.apple.dashboard mcx-disabled -bool true
     # Don’t show Dashboard as a Space
@@ -96,7 +96,9 @@ function configure_dock()
 function configure_finder()
 {
 	# Save screenshots to Pircutre/Screenshots folder
-	mkdir ~/Pictures/Screenshots
+	if test ! -d ~/Pictures/Screenshots; then
+		mkdir -p ~/Pictures/Screenshots
+	fi
     defaults write com.apple.screencapture location -string "${HOME}/Pictures/Screenshots"
     # Keep folders on top when sorting by name
     defaults write com.apple.finder _FXSortFoldersFirst -bool true
