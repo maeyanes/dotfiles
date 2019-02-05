@@ -6,7 +6,6 @@ tap "caskroom/cask"
 tap "caskroom/drivers"
 tap "caskroom/fonts"
 tap "homebrew/bundle"
-tap "homebrew/dupes"
 
 ###############################################################################
 # brew
@@ -27,7 +26,7 @@ brew "git"
 brew "git-open"
 brew "git-redate"
 brew "grc"
-brew "homebrew/dupes/grep", args: ["with-default-names"]
+brew "grep", args: ["with-default-names"]
 brew "htop"
 brew "hub"
 brew "jq"
@@ -52,6 +51,9 @@ brew "z"
 ###############################################################################
 # cask
 ###############################################################################
+#cask "adguard"
+#cask "alfred"
+#cask "authy"
 cask "bartender"
 cask "boom-3d"
 #cask "brave-browser"
@@ -64,7 +66,7 @@ cask "font-fira-mono-for-powerline" # for iTerm2 powerline
 cask "iina"
 cask "iterm2"
 #cask "kitematic"
-cask "little-snitch"
+#cask "little-snitch"
 #cask "ngrok"
 cask "numi"
 cask "provisionql"
@@ -77,6 +79,7 @@ cask "quicklook-csv"
 cask "quicklook-json"
 cask "quicklook-pat"
 cask "quicklookase"
+#cask "roboform"
 cask "sourcetree"
 cask "suspicious-package"
 cask "typora"
@@ -93,5 +96,6 @@ mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Pocket", id: 568494494
+mas "PopClip", id: 445189367
 mas "Trello", id: 1278508951
 mas "Xcode", id: 497799835
