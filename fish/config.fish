@@ -2,12 +2,12 @@
 # Fish theme - influences only the colors of what you type
 # omf theme will not have any influence as powerline controls fish prompt
 ############################################################################
-source ~/personal/dotfiles/fish/fish_theme.fish
+source ~/.system-config/fish/fish_theme.fish
 
 ############################################################################
 # Secret Environment Variables
 ############################################################################
-set --local secret_env_vars_path ~/Dropbox/Dotfiles/secret_env_vars.fish
+set --local secret_env_vars_path ~/Cloud/Dropbox/Dotfiles/secret_env_vars.fish
 test -e $secret_env_vars_path; and source $secret_env_vars_path
 
 ############################################################################
@@ -22,8 +22,8 @@ set --global --export EDITOR vim
 set --global --export PYTHONDONTWRITEBYTECODE true
 set --global --export PYTHONUNBUFFERED true
 set --global --export fish_greeting ''
-set --global --export LC_ALL en_US.UTF-8 # Set locale
-set --global --export LANG en_US.UTF-8   # Set locale
+set --global --export LC_ALL es_ES.UTF-8 # Set locale
+set --global --export LANG es_ES.UTF-8   # Set locale
 
 ############################################################################
 # PATH setup
