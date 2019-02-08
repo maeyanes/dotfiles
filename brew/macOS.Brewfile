@@ -62,6 +62,7 @@ cask "dash"
 #cask "docker"
 cask "dropbox"
 cask "font-fira-mono-for-powerline" # for iTerm2 powerline
+cask "google-backup-and-sync"
 #cask "hazel"
 cask "iina"
 cask "iterm2"
