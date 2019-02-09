@@ -121,7 +121,7 @@ function change_shell_to_fish()
     		fi
     	fi
     	substep "Switching shell to Fish for \"${user}\""
-    	if sudo chsh -s /user/local/bin/fish "$user"; then
+    	if sudo chsh -s /usr/local/bin/fish "$user"; then
     		success "Fish shell successfully set for \"${user}\""
     	else
     		error "Please try setting Fish shell again"
