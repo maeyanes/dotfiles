@@ -1,3 +1,3 @@
 function bootstrap
-    bash ~/.system-config/setup-mac-os.sh
+    bash ~/.system-config/setup.sh
 end
