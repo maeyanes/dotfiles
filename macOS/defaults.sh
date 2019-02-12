@@ -90,7 +90,7 @@ function configure_dock()
     defaults write com.apple.dock wvous-bl-corner -int 0
     defaults write com.apple.dock wvous-bl-modifier -int 0
 
-    open "Dock"
+    #open "Dock"
 }
 
 function configure_finder()
@@ -135,10 +135,10 @@ function quit()
 function open()
 {
 	app=$1
-	osascript << EOM
+	osascript > /dev/null << EOM
 tell application "$app" to activate
 tell application "System Events" to tell process "iTerm2"
-set fromtmost to true
+    set fromtmost to true
 end tell
 EOM
 }
