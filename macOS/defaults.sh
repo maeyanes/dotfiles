@@ -42,8 +42,12 @@ function configure_system()
     defaults write -g KeyRepeat -int 2
     # Make Crash Reporter appear as a notification
     defaults write com.apple.CrashReporter UseUNC 1
+    # Disable "Correct spelling automatically"
+    defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
     # Always show the Detailed Print Dialog in macOS
     defaults write -g PMPrintingExpandedStateForPrint -bool true
+    # Enable full keyboard access for all controls which enables Tab selection in modal dialogs
+    defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
     # Show the ~/Library folder
 	chflags nohidden ~/Library
 }
