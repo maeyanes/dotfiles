@@ -54,7 +54,7 @@ function ask_for_sudo()
 		# Keep-alive
 		while true; do sudo --non-interactive true; \
 			sleep 10; kill -0 "$$" || exit; done 2>/dev/null &
-		success "Sudo password updates"
+		success "Sudo password updated"
 	else
 		error "Sudo password update failed"
 		exit 1
