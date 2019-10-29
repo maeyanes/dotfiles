@@ -34,7 +34,9 @@ set --global --export LANG es_ES.UTF-8   # Set locale
 # over system provided programs
 set --global --export fish_user_paths \
     /usr/local/bin \
+    /usr/local/sbin \
     /usr/local/opt/ruby/bin \
+    /usr/local/lib/ruby/gems/2.6.0/bin \
     $fish_user_paths
 
 ############################################################################
