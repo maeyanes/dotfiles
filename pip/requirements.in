@@ -3,5 +3,4 @@ pip-tools
 pipenv
 powerline-status
 requests
-tmuxp
 virtualenv
