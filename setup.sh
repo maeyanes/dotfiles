@@ -341,6 +341,7 @@ function update_hosts_file()
     ignored_keywords_path=${DOTFILES_REPO}/hosts/ignored_keywords
     downloaded_hosts_file_path=/etc/downloaded_hosts_file
     downloaded_updated_hosts_file_path=/etc/downloaded_updated_hosts_file
+    community_hosts_file_url=https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-social/hosts
 
     if sudo cp "${own_hosts_file_path}" /etc/hosts; then
         substep "Copying ${own_hosts_file_path} to /etc/hosts succeeded"
@@ -349,8 +350,8 @@ function update_hosts_file()
         exit 1
     fi
 
-    if sudo wget --timeout=5 --tries=1 --quiet --output-document="${downloaded_hosts_file_path}" \
-        https://someonewhocares.org/hosts/hosts; then
+    if sudo wget --timeout=5 --tries=3 --quiet --output-document="${downloaded_hosts_file_path}" \
+        $community_hosts_file_url; then
         substep "hosts file downloaded successfully"
 
         if ack --invert-match "$(cat ${ignored_keywords_path})" "${downloaded_hosts_file_path}" | \
