@@ -1,4 +1,5 @@
 brew/Brewfile
+brew/Brewfile*.json
 macOS/.env
 
 # Created by https://www.gitignore.io/api/git,vim,macos,linux,emacs
