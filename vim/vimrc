@@ -1,3 +1,5 @@
+" Inspired by
+" https://github.com/romainl/idiomatic-vimrc/blob/master/idiomatic-vimrc.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vundle initialization
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -34,6 +36,11 @@ Plugin 'leafgarland/typescript-vim' " Typescript syntax support, indentation bas
 Plugin 'mxw/vim-jsx' " Syntax highlighting and indenting for JSX
 Plugin 'ianks/vim-tsx' " Syntax highlighting and indenting for TSX
 Plugin 'dag/vim-fish' " Syntax highlighting and indenting for Fish scripts
+Plugin 'posva/vim-vue' " Syntax highlighting for Vue
+Plugin 'hashivim/vim-terraform' " Syntax highlighting for Terraform files
+Plugin 'tpope/vim-markdown' " Syntax highlighting for markdown files
+Plugin 'mzlogin/vim-markdown-toc' " Generate table of content for markdown files
+Plugin 'jez/vim-superman' " Open man pages in Vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vundle finalisation
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -44,13 +51,21 @@ filetype plugin indent on
 " => Plugins configurations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" ================ vim-markdown configuration ========================
+let g:markdown_syntax_conceal = 0
+
+" ================ command-t configuration ========================
+let g:CommandTAlwaysShowDotFiles = 1
+
 " ================ vim-snippets configuration ========================
 " Adding html snippets to tsx and jsx file types
 autocmd FileType typescript,javascript UltiSnipsAddFiletypes html
 
 " ================ Terminus configuration ========================
 let g:TerminusMouse = 0
+let g:TerminusFocusReporting = 1
 let g:TerminusAssumeITerm = 1
+let g:TerminusBracketedPaste = 0
 
 " ================ Powerline configuration ========================
 silent! python3 from powerline.vim import setup as powerline_setup
@@ -58,7 +73,10 @@ python3 powerline_setup()
 python3 del powerline_setup
 
 " ================ vim-better-whitespace configuration =========================
-autocmd BufEnter * EnableStripWhitespaceOnSave
+let g:better_whitespace_enabled = 1
+let g:strip_whitespace_on_save = 1
+let g:strip_whitespace_confirm = 0
+let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help']
 
 " =========== vim-tmux-navigator configuration ====================
 " Consistent navigation in tmux, vim, vimium
@@ -88,14 +106,16 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 highlight SyntasticError guibg=#2f0000
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['flake8'] " temporarily remove mypy as it causes huge delay on big repos with vim
+"let g:syntastic_python_checkers = ['flake8', 'mypy']
 
 " ================ GitGutter configuration ========================
 let g:gitgutter_map_keys = 0
 
 " ================ Snippet engine configuration ===================
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsExpandTrigger = "<c-j>"
+let g:UltiSnipsJumpForwardTrigger = ""
+let g:UltiSnipsJumpBackwardTrigger = ""
 
 " ================ NERDTree configuration =========================
 let NERDTreeQuitOnOpen = 1 " automatically close NerdTree when you open a file
@@ -113,6 +133,7 @@ autocmd bufenter * if (winnr("$") == 1 &&
 " using prettier for formatting these files
 autocmd BufWritePre *.js,*.jsx Neoformat
 autocmd BufWritePre *.ts,*.tsx Neoformat
+autocmd BufWritePre *.vue Neoformat
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mappings (Always use non-recursive mappings, i.e. "nore")
@@ -143,6 +164,9 @@ nnoremap <leader>o :call CustomNerdToggle() <CR> :<backspace>
 
 " clear search pattern with <leader> and <space>
 nnoremap <leader><space> :noh<CR>:<backspace>
+
+" remove until end of file with d and e
+nnoremap de d$
 
 " open vertical or horizontal splits with <leader> and \ or -
 nnoremap <leader>\ :vs<CR>
@@ -197,6 +221,8 @@ vnoremap s :sort<CR> :<backspace>
 
 " training for e usage instead of $
 nnoremap $ <Nop>
+nnoremap d$ <Nop>
+
 " removing the stupid error of marker not set when accidentally hitting ';
 nnoremap ' <Nop>
 
