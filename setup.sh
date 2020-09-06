@@ -5,17 +5,17 @@ main()
 	# First, ask for sudo credentials
 	ask_for_sudo
 
-	#Installing homebrew
-	install_homebrew
+    # To get "git", needed for clone_dotfile_repo
+    install_xcode_command_line_tools
 
 	# Cloning Dotfiles repository for install_packages_with_brewfile to have access to Brewfile
-	clone_dotfile_repo
+	clone_dotfiles_repo
+
+    # Installing homebrew
+    install_homebrew
 
 	# Installing all packages in Dotfiles repository's Brewfile
 	install_packages_with_brewfile
-
-	# Remove quarantine from casks downloaded by brew
-	remove_quarantine
 
 	# Changing default shell to Fish
 	change_shell_to_fish
@@ -61,14 +61,34 @@ function ask_for_sudo()
 	fi
 }
 
+function install_xcode_command_line_tools()
+{
+    info "Installing Xcode command line tools"
+
+    if softwareupdate --history | grep --silent "Command Line Tools"; then
+        success "Xcode command line tools already exists"
+    else
+        xcode-select --install
+        while true; do
+            if softwareupdate --history | grep --silent "Command Line Tools"; then
+                success "Xcode command line tools installation succeeded"
+                break
+            else
+                substep "Xcode command line tools still installing..."
+                sleep 20
+            fi
+        done
+    fi
+}
+
 function install_homebrew()
 {
 	info "Installing Homebrew"
 	if hash brew 2>/dev/null; then
 		success "Hombrew already exists"
 	else
-		url=https://raw.githubusercontent.com/maeyanes/dotfiles/master/installers/homebrew_installer
-        if /usr/bin/ruby -e "$(curl -fsSL ${url})"; then
+		url=https://raw.githubusercontent.com/Homebrew/install/master/install
+        if yes | /usr/bin/ruby -e "$(curl -fsSL ${url})"; then
         	success "Homebrew installation succeeded"
         else
         	error "Homebrew installation failed"
@@ -79,26 +99,43 @@ function install_homebrew()
 
 function install_packages_with_brewfile()
 {
-	BREW_FILE_PATH="${DOTFILES_REPO}/brew/macOS.Brewfile"
-	info "Installing packages within ${BREW_FILE_PATH}"
-	if brew bundle check --file="$BREW_FILE_PATH" &> /dev/null; then
-		success "Brewfile's dependencies are already satisfied"
-	else
-		if brew bundle --file="$BREW_FILE_PATH"; then
-			success "Brewfile installation succeeded"
-		else
-			error "Brewfile installation failed"
-			exit 1
-		fi
-	fi
-}
+    info "Installing Brewfile packages"
 
-function remove_quarantine()
-{
-	APPLICATIONS_PATH=/Applications
-	info "Removing quarantine attributes from application in ${APPLICATIONS_PATH}"
-	sudo xattr -c ${APPLICATIONS_PATH}/*.app &> /dev/null;
-	success "Quarantine attributes from applications in ${APPLICATIONS_PATH} successfully removed"
+    TAP=${DOTFILES_REPO}/brew/Brefile_tap
+    BREW=${DOTFILES_REPO}/brew/Brefile_brew
+    CASK=${DOTFILES_REPO}/brew/Brewfile_cask
+    MAS=${DOTFILES_REPO}/brew/Brewfile_mas
+
+    if hash parallel 2>/dev/null; then
+        substep "parallel already exists"
+    else
+        if brew install parallel &> /dev/null; then
+            printf 'will cite' | parallel --citation &> /dev/null
+            substep "parallel instalation succeeded"
+        else
+            error "parallel instalation failed"
+            exit 1
+        fi
+    fi
+
+    if (echo $TAP; echo $BREW; echo $CASK; echo $MAS) | parallel --verbose --linebuffer -j 4 brew bundle check --file={} &> /dev/null; then
+        success "Brewfile packages are already installed"
+    else
+        if brew bundle --file="$TAP"; then
+            substep "Brewfile_tap installation succeeded"
+
+            export HOMEBREW_CASK_OPTS="--no-quarantine"
+            if (echo $BREW; echo $CASK; echo $MAS) | parallel --verbose --linebuffer -j 3 brew bundle --file={}; then
+                success "Brewfile packages installation succeeded"
+            else
+                error "Brewfile packages installation failed"
+                exit 1
+            fi
+        else
+            error "Brewfile_tap installation failed"
+            exit 1
+        fi
+    fi
 }
 
 function change_shell_to_fish()
@@ -131,26 +168,15 @@ function change_shell_to_fish()
 
 function install_pip_packages()
 {
-	pip_packages=(powerline-status requests tmuxp virtualenv)
-	info "Installing pip packages \"${pip_packages[*]}\""
+    info "Installing pip packages"
+    REQUIREMENTS_FILE=${DOTFILES_REPO}/pip/requirements.txt
 
-	pip3_list_outcome=$(pip3 list)
-	for package_to_install in "${pip_packages[@]}"
-	do
-		if echo "$pip3_list_outcome" | \
-			grep --ignore-case "$package_to_install" &> /dev/null; then
-			substep "\"${package_to_install}\" already exists"
-		else
-			if pip3 install "$package_to_install"; then
-				substep "Package \"${package_to_install}\" installation succeeded"
-			else
-				error "Package \"${package_to_install}\" installation failed"
-				exit 1
-			fi
-		fi
-	done
-
-	success "pip packages successfully installed"
+    if pip3 install -r "$REQUIREMENTS_FILE" 1> /dev/null; then
+        success "pip packages successfully installed"
+    else
+        error "pip packages installation failed"
+        exit 1
+    fi
 }
 
 function install_yarn_packages() {
@@ -179,7 +205,7 @@ function install_yarn_packages() {
     success "yarn packages successfully installed"
 }
 
-function clone_dotfile_repo()
+function clone_dotfiles_repo()
 {
 	info "Cloning dotfiles repository into ${DOTFILES_REPO}"
 	if test -e $DOTFILES_REPO; then
@@ -194,7 +220,7 @@ function clone_dotfile_repo()
 		else
 			error "Dotfiles repository cloning failed"
 			exit 1
-		fi 
+		fi
 	fi
 }
 
@@ -274,10 +300,9 @@ function setup_symlinks()
 
     info "Setting up symlinks"
     symlink "git" ${DOTFILES_REPO}/git/gitconfig ~/.gitconfig
-    #symlink "iterm2" ${DOTFILES_REPO}/iTerm2/iterm_startup_script.scpt "${APPLICATION_SUPPORT}"/iTerm2/Scripts/AutoLaunch.scpt
     symlink "powerline" ${DOTFILES_REPO}/powerline ${POWERLINE_ROOT_REPO}/powerline/config_files
     symlink "tmux" ${DOTFILES_REPO}/tmux/tmux.conf ~/.tmux.conf
-    #symlink "vim" ${DOTFILES_REPO}/vim/vimrc ~/.vimrc
+    symlink "vim" ${DOTFILES_REPO}/vim/vimrc ~/.vimrc
 
     # Disable shell login message
     symlink "hushlogin" /dev/null ~/.hushlogin
@@ -324,7 +349,7 @@ function update_hosts_file()
         exit 1
     fi
 
-    if sudo wget --quiet --output-document="${downloaded_hosts_file_path}" \
+    if sudo wget --timeout=5 --tries=1 --quiet --output-document="${downloaded_hosts_file_path}" \
         https://someonewhocares.org/hosts/hosts; then
         substep "hosts file downloaded successfully"
 
@@ -421,4 +446,6 @@ function error()
 	coloredEcho "$1" red "========>"
 }
 
-main "$@"
+if [ "${1}" != "--source-only" ]; then
+    main "${@}"
+fi
