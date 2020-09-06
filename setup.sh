@@ -215,7 +215,7 @@ function clone_dotfiles_repo()
 	else
 		url=https://github.com/maeyanes/dotfiles.git
 		if git clone "$url" $DOTFILES_REPO && \
-		   git remote set-url origin git@github.com:maeyanes/dotfiles.git; then
+		   git -C $DOTFILES_REPO remote set-url origin git@github.com:maeyanes/dotfiles.git; then
 			success "Dotfiles repository cloned into ${DOTFILES_REPO}"
 		else
 			error "Dotfiles repository cloning failed"
@@ -296,7 +296,7 @@ function setup_tmux()
 function setup_symlinks()
 {
     APPLICATION_SUPPORT=~/Library/Application\ Support
-    POWERLINE_ROOT_REPO=/usr/local/lib/python3.7/site-packages
+    POWERLINE_ROOT_REPO=/usr/local/lib/python3.8/site-packages
 
     info "Setting up symlinks"
     symlink "git" ${DOTFILES_REPO}/git/gitconfig ~/.gitconfig
