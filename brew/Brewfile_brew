@@ -26,7 +26,6 @@ brew "node"
 brew "nvm"
 brew "parallel"
 brew "p7zip"
-brew "pyenv"
 brew "python"
 brew "reattach-to-user-namespace" # for tmux commands to work
 brew "ruby"
