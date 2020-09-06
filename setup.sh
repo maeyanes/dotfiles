@@ -252,7 +252,7 @@ function setup_vim()
         fi
     fi
     substep "Installing all plugins"
-    if vim +PluginInstall +qall 2> /dev/null; then
+    if yes | vim +PluginInstall +qall 2> /dev/null; then
         substep "Plugins installations succeeded"
     else
         error "Plugins installations failed"
