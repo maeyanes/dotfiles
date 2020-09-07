@@ -448,7 +448,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>1511 785 796 486 0 0 2880 1597 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1081 266 1610 876 0 0 2880 1597 </string>
+	<string>874 349 1610 876 0 0 2880 1597 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1221 76 1610 1521 0 0 2880 1597 </string>
 	<key>New Bookmarks</key>
@@ -1210,16 +1210,17 @@
 	</array>
 	<key>NoSyncAllAppVersions</key>
 	<array>
+		<string>3.3.9</string>
 		<string>3.2.8</string>
 		<string>3.3.7</string>
-		<string>3.3.9</string>
+		<string>3.3.12</string>
 	</array>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
 		<string>{{0, 0}, {2880, 1620}}</string>
 		<key>topLeft</key>
-		<string>{137, 1381}</string>
+		<string>{531, 963}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
@@ -1228,7 +1229,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>D2693056-7F64-4B9A-AA7A-C06610E6C8BE</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>43</integer>
+	<integer>47</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2053,7 +2054,7 @@
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
 	<key>iTerm Version</key>
-	<string>3.3.9</string>
+	<string>3.3.12</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
