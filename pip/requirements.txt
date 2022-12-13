@@ -28,7 +28,7 @@ mypy-extensions==0.4.3
     # via mypy
 pip-tools==5.3.1
     # via -r requirements.in
-pipenv==2020.8.13
+pipenv==2022.1.8
     # via -r requirements.in
 powerline-status==2.7
     # via -r requirements.in
