@@ -10,7 +10,7 @@ certifi==2022.12.7
     # via
     #   pipenv
     #   requests
-chardet==3.0.4
+charset-normalizer==3.1.0
     # via requests
 click==7.1.2
     # via pip-tools
@@ -32,7 +32,7 @@ pipenv==2022.1.8
     # via -r requirements.in
 powerline-status==2.7
     # via -r requirements.in
-requests==2.24.0
+requests==2.31.0
     # via -r requirements.in
 six==1.15.0
     # via
