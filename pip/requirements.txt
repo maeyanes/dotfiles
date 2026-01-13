@@ -42,7 +42,7 @@ typing-extensions==3.7.4.3
     # via mypy
 urllib3==2.6.3
     # via requests
-virtualenv==20.26.6
+virtualenv==20.36.1
     # via
     #   -r requirements.in
     #   pipenv
